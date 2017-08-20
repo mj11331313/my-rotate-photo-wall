@@ -119,7 +119,7 @@
                 var bFlag = true; //定义标识位，判断当前是大图显示还是小图显示，假定true表示小图
                 oContainer.onclick = function(e){  //通过事件委托给子元素绑定事件
                     if(e.target != this ){  //e的可能值:container div border
-                        if( bFlag ){  //当前是小图显示，点击后要变为大图显示
+                        if( bFlag ){  //若当前是小图显示，点击后要变为大图显示
                             var fBigGapCol = (oContainer.offsetWidth - BWidth)/2;
                             var fBigGapRow = (oContainer.offsetHeight - BHeight)/2;
                             for( var i = 0 ; i < NUM ; i++ ){
@@ -139,8 +139,8 @@
                                 aSpan[i].style.backgroundImage = "url(img/"+ nowIndex+".jpg)";
                                 aSpan[i].style.backgroundPosition = -SWidth * (i % COL ) + "px "+ (-SHeight * (parseInt(i/COL))) + "px" ;
                             };
-                            oBack.style.display = oNext.style.display = "block";
-                        }else{
+                            oBack.style.display = oNext.style.display = "block";   //显示按钮
+                        }else{   //若当前是大图显示，点击后要变为小图显示
                             for( var i = 0 ; i < NUM ; i++ ){
                                 aImg[i].style.left = fGapCol * (i % COL + 1) + oDiv.offsetWidth * ( i % COL ) + "px";
                                 aImg[i].style.top = fGapRow *( parseInt(i / COL) + 1) + oDiv.offsetHeight * parseInt(i / 6) + "px";
@@ -148,25 +148,27 @@
                                 aSpan[i].style.opacity = 0 ;
                                 aSpan[i].style.transitionDelay = "0ms";
                             }
-                            oBack.style.display = oNext.style.display = "none";
+                            oBack.style.display = oNext.style.display = "none";   //隐藏按钮
                         };
-                        bFlag = !bFlag ;
+                        bFlag = !bFlag ;    //每次点击后标识位取反，以进行下次处理
                     };
                 };
+                //处理按钮点击事件：
                 oBack.onclick = oNext.onclick = function(){
                     if( this === oBack ){
-                        nowIndex -- ;
+                        nowIndex -- ;    //控制当前显示图片下标的范围
                         if( nowIndex == 0 ) nowIndex = NUM ;
                     }else{
                         nowIndex ++ ;
                         if( nowIndex == NUM + 1) nowIndex = 1;
                     };
+                    //制作左右切换随机翻转的效果
                     var arr = [];
                     for( var i = 0 ; i < NUM ; i++ ){
-                        arr.push(i);
+                        arr.push(i);     //定义数组保存图片下标
                     };
                     arr.sort(function(){
-                        return Math.random()-0.5;
+                        return Math.random()-0.5;     //图片下标随机排序
                     });
                     for( var i = 0 ; i < NUM ; i++ ){
                         aSpan[arr[i]].style.backgroundImage = "url(img/"+ nowIndex +".jpg)";

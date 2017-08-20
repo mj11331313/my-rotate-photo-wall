@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>旋转图片</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            perspective: 3000px;
+            perspective-origin: 50% -600px;
+        }
+        #container{
+            width: 500px;
+            height: 300px;
+            position: relative;
+            margin: 200px auto;
+            transform: rotateZ(45deg) rotateX(45deg);
+            transform-style: preserve-3d;
+            animation: run 10s linear infinite;
+            animation-direction: alternate;
+            transition: all 3s ease;
+        }
+        .photo{
+            width: 500px;
+            height: 300px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: all 3s ease;
+        }
+        .one{
+            background-image: url("img/1.jpg");
+            transform: translateZ(-430px);
+        }
+        .two{
+            background-image: url("img/2.jpg");
+            transform: rotateY(60deg) translateZ(-430px);
+        }
+        .three{
+            background-image: url("img/3.jpg");
+            transform: rotateY(-60deg) translateZ(-430px);
+        }
+        .four{
+            background-image: url("img/4.jpg");
+            transform: rotateY(-60deg) translateZ(430px);
+        }
+        .five{
+            background-image: url("img/5.jpg");
+            transform: rotateY(60deg) translateZ(430px);
+        }
+        .six{
+            background-image: url("img/6.jpg");
+            transform: translateZ(430px);
+        }
+        @keyframes run {
+            100%{
+                transform: rotateX(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="photo one"></div>
+        <div class="photo two"></div>
+        <div class="photo three"></div>
+        <div class="photo four"></div>
+        <div class="photo five"></div>
+        <div class="photo six"></div>
+    </div>
+    <script>
+        var oContainer = document.getElementById("container");
+        var aDiv = oContainer.getElementsByTagName("div");
+        for(var i =0; i< aDiv.length ; i++){
+            aDiv[i].onclick = function(){
+                oContainer.style.transform = "rotateZ(0deg) rotateX(0deg)";
+                oContainer.style.animationName = "";
+            }
+        }
+    </script>
+</body>
+</html>
